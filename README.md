@@ -20,20 +20,45 @@ SSOTが存在する？
 
 あらゆる技術スタックで動作する。SSOTのフォーマットはプロジェクトに応じて決定される（Tailwind設定、ScriptableObject、デザイントークンJSONなど）。
 
-## 使い方
+## 前提条件
 
-gitサブモジュールとして追加:
+- Claude Code（CLI / デスクトップアプリ / IDE拡張）
+
+## インストール
+
+### gitサブモジュール（推奨）
+
+リポジトリの更新を自動的に追跡できる。
 
 ```bash
 git submodule add https://github.com/coil398/ai-design-system .claude/skills/design-system
 ```
 
-`CLAUDE.md` で参照:
+### 手動配置
+
+リポジトリをクローンし `.claude/skills/design-system/` に配置する。
+
+```bash
+git clone https://github.com/coil398/ai-design-system .claude/skills/design-system
+```
+
+### CLAUDE.mdへの登録
+
+インストール後、プロジェクトの `CLAUDE.md` に以下を追記する:
 
 ```md
 ## Design System
 See .claude/skills/design-system/SKILL.md
 ```
+
+## 使い方
+
+スキルを登録すると、以下のような操作でエージェントが自動的にスキルを参照する:
+
+- 「デザインシステムをセットアップして」 → BOOTSTRAP.mdに従いSSOTを生成
+- 「デザインの一貫性をチェックして」 → AUDIT.mdに従いgapを検出
+- 「新しいコンポーネントを作って」 → SSOTのトークン・規則に従い実装
+- 「トークンを追加して」 → SSOTを更新し影響範囲を確認
 
 ## ファイル構成
 
