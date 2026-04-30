@@ -79,3 +79,27 @@ See .claude/skills/design-system/SKILL.md
 - IDEAL.mdは「あるべき姿」を定義する。特定の状態からの移行方法ではない。差分はエージェントが導出する
 - SSOTはコードである。リンターとエージェントの両方が読める機械可読な形式でなければならない
 - スキルの更新は意図的に非破壊。スキル更新時、エージェントは新しいidealに対して現状のコードベースを再評価する。移行スクリプトは不要
+
+## 関連スキルとの統合
+
+### frontend-design（Anthropic 公式）と並列に使う
+
+`frontend-design` は単発の創作向け（「印象に残る一画面を作る」）。`ai-design-system` は継続的なシステム維持向け（「全コンポーネントに一貫した aesthetic を保つ」）。両者は対立せず、役割分担できる:
+
+| シーン | 推奨スキル |
+|--------|----------|
+| 新プロジェクトでまず1画面の方向性を見たい | `frontend-design` でラフを生成 → 気に入ったら `BOOTSTRAP.md` で SSOT 化 |
+| 既存プロジェクトの SSOT を初期化 | `BOOTSTRAP.md`（aesthetic interview を含む） |
+| 1コンポーネントだけインスピレーションが欲しい | `frontend-design` を単発で叩く（SSOT は後で取り込む） |
+| デザインシステム全体の audit | `AUDIT.md` |
+| AI slop 度を単発で測りたい | `anti-slop` スキル（独立スキル、軽量検出のみ） |
+
+**統合パス（frontend-design → ai-design-system）の例**:
+1. `/frontend-design` でアイデアラフを生成（フォント・配色・装飾の素案）
+2. 気に入った要素を `aesthetic.tone` / `differentiation` / 主要トークンに翻訳
+3. `BOOTSTRAP.md` の Step 3 テンプレに値を流し込む
+4. `AUDIT.md` で全体への波及（既存コードとの整合）を確認
+
+### anti-slop スキル
+
+generic AI aesthetics の検出だけを切り出した軽量スキル（`/anti-slop`）。SSOT 管理に踏み込む前の「測定」「他リポの観察」に使う。本スキルがフルセットなのに対し、anti-slop は読み取りオンリーで修正提案を出さない。
