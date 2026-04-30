@@ -91,15 +91,10 @@ See .claude/skills/design-system/SKILL.md
 | 新プロジェクトでまず1画面の方向性を見たい | `frontend-design` でラフを生成 → 気に入ったら `BOOTSTRAP.md` で SSOT 化 |
 | 既存プロジェクトの SSOT を初期化 | `BOOTSTRAP.md`（aesthetic interview を含む） |
 | 1コンポーネントだけインスピレーションが欲しい | `frontend-design` を単発で叩く（SSOT は後で取り込む） |
-| デザインシステム全体の audit | `AUDIT.md` |
-| AI slop 度を単発で測りたい | `anti-slop` スキル（独立スキル、軽量検出のみ） |
+| デザインシステム全体の audit / AI slop 度の測定 | `AUDIT.md` ＋ `audit.sh`（generic font 直書き / 紫グラデ / aesthetic 欠落を一発検出） |
 
 **統合パス（frontend-design → ai-design-system）の例**:
 1. `/frontend-design` でアイデアラフを生成（フォント・配色・装飾の素案）
 2. 気に入った要素を `aesthetic.tone` / `differentiation` / 主要トークンに翻訳
 3. `BOOTSTRAP.md` の Step 3 テンプレに値を流し込む
-4. `AUDIT.md` で全体への波及（既存コードとの整合）を確認
-
-### anti-slop スキル
-
-generic AI aesthetics の検出だけを切り出した軽量スキル（`/anti-slop`）。SSOT 管理に踏み込む前の「測定」「他リポの観察」に使う。本スキルがフルセットなのに対し、anti-slop は読み取りオンリーで修正提案を出さない。
+4. `AUDIT.md` ＋ `audit.sh` で全体への波及（既存コードとの整合・generic AI default の混入）を確認
